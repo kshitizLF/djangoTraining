@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question {{question_id}}</title>
+</head>
+<body>
+    <h2>{{question_text}}</h2>
+    <ul>
+        {% for i in choice_list %}
+        <li>{{i.choice_text}} has {{i.votes}} Votes</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'polls' %}">hw</a>
+</body>
+</html>

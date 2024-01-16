@@ -1,0 +1,25 @@
+{% load static %}   
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'home/index.css' %}">
+    <title>Home</title>
+</head>
+
+<body>
+    {% with name="Kshitiz Sharma" %}
+    <h1>Hello {#{{ name }}#}</h1>
+    {% endwith %}
+    <ul>
+        {% if members %}
+        {% for i in members %}
+        <li><a href="details/{{i.id}}">{{i.first_name}} {{i.last_name}} </a></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit reprehenderit eius beatae minima expedita, possimus, ab Age : {{age}} maxime est nemo accusamus dolorem itaque sapiente deleniti quidem alias ipsa assumenda eos praesentium id animi iusto, illum odit! Perspiciatis libero sint omnis odio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo voluptatum nisi repudiandae recusandae velit labore nulla sunt animi nihil enim quas, natus explicabo! Eum labore distinctio perferendis quae suscipit, deserunt hic neque. Quibusdam provident culpa nesciunt! Ab accusantium nam sequi labore deserunt laboriosam, quae nostrum porro nobis, facere, nisi sint unde esse. Deleniti, sed. Vel expedita repudiandae aut laboriosam nesciunt!</p>
+    <!-- <a href="ghar/">Mujhe ghar jaana hai</a> -->
+</body>
+</html>

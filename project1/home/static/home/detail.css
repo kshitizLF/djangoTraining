@@ -1,0 +1,13 @@
+.heading{
+    background-color:blanchedalmond;
+    margin: 0;
+    text-align: center;
+}
+*{
+    text-decoration: none;
+    
+    background-image: url("./signature.jpg");
+}
+a:visited{
+    color: black;
+}

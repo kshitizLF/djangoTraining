@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'home/detail.css' %}">
+    <title>{{first_name}}</title>
+</head>
+<body>
+    <div class="heading">
+        <hr>
+        <h1>{{first_name}} {{last_name}}</h1>
+        <hr>
+    </div>
+    <h3>{{email}}</h3>
+    <h3>{{age}}</h3>
+    
+    <a href="{% url 'home' %}"><button id="back">Home Page</button></a>
+ 
+</body>
+
+</html>
