@@ -95,3 +95,44 @@ class Employee(models.Model):
             Employee.objects.order_by("-name").values()
     '''
 
+class Customer(models.Model):
+    name = models.CharField(max_length = 40)
+    def __str__(self):
+        return f"{self.name}"
+
+class Product(models.Model):
+    name = models.CharField(max_length = 40)
+    customer = models.ManyToManyField(Customer)
+    
+    def __str__(self):
+        return f"{self.name}"    
+
+'''
+>>> from home.models import Customer,Product
+>>> c1 = Customer(name="Kshitiz")
+>>> c1.save()
+>>> c2 = Customer(name="Pree")    
+>>> c2.save()
+>>> p1 = Product(name = "watch")
+>>> p1.save()
+>>> p1.customer.add(c1,c2)
+>>> Product.objects.get(id=1).customer.values()[0]["name"]
+'''
+
+class Citizen(models.Model):
+    name = models.CharField(max_length=40)
+    age = models.SmallIntegerField()
+    adhaar = models.BigIntegerField()
+    class Meta:
+        abstract = True
+
+class ArmyMan(Citizen):
+    posting = models.CharField(max_length=30)
+
+class Civilian(Citizen):
+    company = models.CharField(max_length=30)
+
+'''
+    Abstract Model doesnot create a table in the database
+    instead is just used to provide common attributes for inherited model classes
+'''
