@@ -1,0 +1,29 @@
+{% extends "employees/master.html" %}
+
+
+{% block title %}
+Employees
+{% endblock %}
+
+{% block content %}
+<ul>
+    {%for employee in employees %}
+        <li>
+            <div>
+                <a href="desk/{{ employee.desk_id }}">Name : {{ employee.name }}</a> 
+            </div>
+            <div>
+                position : {{employee.position}}
+            </div>
+            <br>
+        </li>
+        {% endfor %}
+        <div>
+            <form action="" method="POST">
+                <input type="number" name="id">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+</ul>
+
+{% endblock %}

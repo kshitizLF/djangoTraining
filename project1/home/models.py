@@ -66,7 +66,11 @@ class Desk(models.Model):
     number = models.SmallIntegerField(verbose_name="Desk Number")
     floor = models.SmallIntegerField(verbose_name="Floor No.")
 
+    def __str__(self):
+        return f"Floor : {self.floor}, Number : {self.number}"
+
     class Meta:
+        # ordering = ['floor','-number'] number decreasing order
         ordering = ['floor','number']
     
     def employeeAssigned(self):
@@ -78,6 +82,18 @@ class Desk(models.Model):
     
     
 class Employee(models.Model):
+    '''
+        OneToOne relationship : 
+        Only one entry in Employee for a corresspon
+        Some Basic commands
+            Employee.objects.filter(desk__number__gt = 1)
+            Employee.objects.get(name="Abhi").desk
+            Employee.objects.order_by("-name").values()
+        In this example, Employee cannot exit without a desk but desk can be existing without
+        employee,
+        If we do on_delete = model.SET_NULL, employee can exit without an assigned table as 
+        desk_id will be NULL
+    '''
     name = models.CharField(max_length=50)
     choices = [
         ("IN","Intern"),
@@ -86,14 +102,7 @@ class Employee(models.Model):
     position = models.CharField(max_length = 20,choices = choices)
     desk = models.OneToOneField(Desk,on_delete=models.CASCADE)
 
-    '''
-        OneToOne relationship : 
-        Only one entry in Employee for a corresspon
-        Some Basic commands
-            Employee.objects.filter(desk__number__gt = 1)
-            Employee.objects.get(name="Abhi").desk
-            Employee.objects.order_by("-name").values()
-    '''
+   
 
 class Customer(models.Model):
     name = models.CharField(max_length = 40)
@@ -117,6 +126,8 @@ class Product(models.Model):
 >>> p1.save()
 >>> p1.customer.add(c1,c2)
 >>> Product.objects.get(id=1).customer.values()[0]["name"]
+In ManyToMany relationship, if we delete one entry corressponding entries remain unlike in foreign key
+where entries are cascaded
 '''
 
 class Citizen(models.Model):
@@ -125,9 +136,13 @@ class Citizen(models.Model):
     adhaar = models.BigIntegerField()
     class Meta:
         abstract = True
+        ordering = ["name","age"]
 
 class ArmyMan(Citizen):
     posting = models.CharField(max_length=30)
+    
+    class Meta(Citizen.Meta):
+        pass
 
 class Civilian(Citizen):
     company = models.CharField(max_length=30)
@@ -135,4 +150,10 @@ class Civilian(Citizen):
 '''
     Abstract Model doesnot create a table in the database
     instead is just used to provide common attributes for inherited model classes
+
+    We can also inherit the meta options by inheriting Meta class of child class by
+    the Meta class of the base class
+    But in child class abstract is turned False by default
+
+    If we have more then 1 ABC, we need to inherit the meta classes of all ABC
 '''
