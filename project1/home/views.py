@@ -3,6 +3,9 @@ from django.http import HttpResponse,Http404
 from django.template import loader
 from .models import Member,Question,Choice
 import urllib,json
+from .forms import addEmpForm,findUserForm
+from django.views.decorators.csrf import csrf_protect
+
 def funct(request):
     members = Member.objects.all().values()
     t = loader.get_template('home/index.html')
@@ -38,11 +41,14 @@ def quest(request,id):
     # print(q1)
 
     # raise Http404("so")
-    return 
-
+    # return 
 def form(request):
     template = loader.get_template('home/form.html')
-    return HttpResponse(template.render())
+    context = {
+        'form':addEmpForm(),
+        'form1':findUserForm()
+    }
+    return HttpResponse(template.render(context=context, request=request))
 
 def formSubmit(request):
     if request.method == "POST":
@@ -51,7 +57,7 @@ def formSubmit(request):
             m1 = Member.objects.get(email = obj.get("email"))
             return HttpResponse("Entry Already in Database")
         except:
-            m1 = Member(first_name = obj.get("firstName"),last_name = obj.get("lastName"),age = obj.get("age"), email = obj.get("email"))
+            m1 = Member(first_name = obj.get("first_name"),last_name = obj.get("last_name"),age = obj.get("age"), email = obj.get("email"))
             m1.save()
             print(obj)
             template = loader.get_template("home/formSubmitted.html")

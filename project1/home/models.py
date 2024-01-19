@@ -130,22 +130,22 @@ In ManyToMany relationship, if we delete one entry corressponding entries remain
 where entries are cascaded
 '''
 
-class Citizen(models.Model):
-    name = models.CharField(max_length=40)
-    age = models.SmallIntegerField()
-    adhaar = models.BigIntegerField()
-    class Meta:
-        abstract = True
-        ordering = ["name","age"]
+# class Citizen(models.Model):
+#     name = models.CharField(max_length=40,default)
+#     age = models.SmallIntegerField(default = 21)
+#     adhaar = models.BigIntegerField(default = 1)
+#     class Meta:
+#         abstract = True
+#         ordering = ["name","age"]
 
-class ArmyMan(Citizen):
-    posting = models.CharField(max_length=30)
+# class ArmyMan(Citizen):
+#     posting = models.CharField(max_length=30)
     
-    class Meta(Citizen.Meta):
-        pass
+#     class Meta(Citizen.Meta):
+#         pass
 
-class Civilian(Citizen):
-    company = models.CharField(max_length=30)
+# class Civilian(Citizen):
+#     company = models.CharField(max_length=30)
 
 '''
     Abstract Model doesnot create a table in the database

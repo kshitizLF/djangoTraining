@@ -1,0 +1,9 @@
+{% block content %}
+    <ul>
+        {% for i in taskList %}
+            <li>
+                {{i.text}}
+            </li>
+        {% endfor%}
+    </ul>
+{% endblock %}

@@ -8,7 +8,8 @@
 <body>
     <h3>Make Entry Form</h3>
     <form action="formDone/" method="POST">
-        <label for="firstName">First Name:</label>
+        {% csrf_token%}
+        <!-- <label for="firstName">First Name:</label>
         <input type="text" name="firstName">
         <br><br>
         <label for="lastName">Last Name:</label>
@@ -19,13 +20,16 @@
         <br><br>
         <label for="email">Email Id:</label>
         <input type="email" name="email">
-        <br><br>
+        <br><br> -->
+        {{form}}
         <button type="submit">Submit</button>
     </form>
     <h3>Find User Form</h3>
     <form action="formDone/" method="GET">
-        <label for="email">Enter Email:</label>
-        <input type="email" name="email">
+        {% csrf_token %}
+        {{form1}}
+        <!-- <label for="email">Enter Email:</label>
+        <input type="email" name="email"> -->
         <button type="submit">Submit</button>
     </form>
     <br><br>

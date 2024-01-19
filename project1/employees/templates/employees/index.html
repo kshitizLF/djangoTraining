@@ -15,12 +15,15 @@ Employees
             <div>
                 position : {{employee.position}}
             </div>
+            <div>
+                <a href="tasks/{{employee.id}}">Ongoing Tasks</a>
+            </div>
             <br>
         </li>
         {% endfor %}
         <div>
             <form action="" method="POST">
-                <input type="number" name="id">
+                <input type="text" name="name">
                 <button type="submit">Delete</button>
             </form>
         </div>
