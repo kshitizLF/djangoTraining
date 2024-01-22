@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Hello</h2>
+    <ul>
+        {% for object in object_list %}
+        <li>
+            <div>{{object.title}}</div>
+            <div>{{object.pageNo}}</div>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="?page=1">Page 1</a>
+    {% if page_obj.has_previous %}
+        <a href="?page={{page_obj.previous_page_number}}">Previous Page</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+        <a href="?page={{page_obj.next_page_number}}">Next Page</a>
+    {% endif %}
+    <a href="?page={{page_obj.paginator.num_pages}}">Last Page</a>
+</body>
+</html>
