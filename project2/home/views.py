@@ -1,12 +1,13 @@
 from typing import Any
+from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.http.response import HttpResponse as HttpResponse
 from django.utils import timezone
-from django.shortcuts import render
-from django.views.generic import TemplateView, RedirectView, DetailView, ListView, FormView, CreateView
+from django.shortcuts import render,redirect,reverse
+from django.views.generic import TemplateView, RedirectView, DetailView, ListView, FormView, CreateView,      DeleteView
 from home.models import Book
 from home.forms import BookForm
 # Create your views here.
@@ -87,3 +88,18 @@ class Home7(CreateView):
     success_url = reverse_lazy("bookList")
     pass
     
+
+class Home8(DeleteView):
+    model = Book
+    template_name = "home/t5.html"
+    success_url = reverse_lazy("bookList")
+
+class Home9(RedirectView):
+    def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
+        try: 
+            b = Book.objects.get(id=kwargs.get("pk"))
+            url = f"delete/{int(kwargs.get("pk"))}"
+            # return reverse("home:DeleteBook",args= [kwargs.get("pk")])
+            return url
+        except:
+            return reverse_lazy("bookList")
