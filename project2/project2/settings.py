@@ -40,7 +40,9 @@ INSTALLED_APPS = [
 ]
 
 CREATED_APPS = [
-    "home"
+    "home",
+    "rest",
+    "rest_framework"
 ]
 
 INSTALLED_APPS += CREATED_APPS
