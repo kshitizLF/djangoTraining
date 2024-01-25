@@ -8,6 +8,9 @@ import json
 from django.http import JsonResponse
 from rest_framework.views import APIView
 
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import ListModelMixin,CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin
+
 @api_view()
 def hello(request):
     return Response({"message":"This is my first api response"})
@@ -125,3 +128,44 @@ class CarView(APIView):
 
         return Response(serialized.data)
 
+class CarView(GenericAPIView,ListModelMixin,CreateModelMixin,UpdateModelMixin):
+    serializer_class = CarSerializer
+    '''
+    def get(self,request):
+        serialized = self.serializer_class(self.get_queryset(),many=True)
+        return Response(serialized.data)    
+    '''
+    '''
+        post create from the CreateModelMixin is used to create and save a model instance and return 201
+        status code
+    '''
+
+    def get_queryset(self):
+        id = self.kwargs.get("pk")
+        if id is None:
+            return Car.objects.all()
+        else:
+            return Car.objects.filter(id__gte = id)
+    def get(self,request,*args,**kwargs):
+        # print(kwargs["pk"])
+        return self.list(request,*args,**kwargs)
+
+    def post(self,request,*args,**kwargs):
+        return self.create(request,*args,**kwargs)   
+    
+    def put(self,request,*args,**kwargs):
+        return self.update(request,*args,**kwargs)
+
+
+class CarOne(GenericAPIView,RetrieveModelMixin,DestroyModelMixin):
+    serializer_class = CarSerializer
+    queryset = Car.objects.all()
+
+    def get(self,request,*args,**kwargs):
+        return self.retrieve(request,*args,**kwargs)
+    
+    def put(self,request,*args,**kwargs):
+        return self.destroy(request,*args,**kwargs)
+
+    
+    
