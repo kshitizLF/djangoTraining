@@ -11,6 +11,6 @@ jsonData = json.dumps(data)
 # resp = requests.post(url = endpoint,json=jsonData)
 # print(resp.json())
 
-endpoint = "http://127.0.0.1:8000/api/updateCar/10"
+endpoint = "http://127.0.0.1:8000/api/deleteCar/12"
 
-resp = requests.post(url = endpoint, json=jsonData)
+resp = requests.delete(url = endpoint)

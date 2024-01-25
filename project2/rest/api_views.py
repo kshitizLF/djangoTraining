@@ -5,8 +5,9 @@ from .serializers import CarSerializer
 from .models import Car
 from .forms import CarForm
 import json
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from rest_framework.views import APIView
+
 @api_view()
 def hello(request):
     return Response({"message":"This is my first api response"})
@@ -55,9 +56,9 @@ def postData(request):
 #     serializer_class = CarSerializer
 #     queryset = Car.objects.filter(company__contains = "d")
 @api_view()
-def carDelete(request,model):
+def carDelete(request,id):
     try:
-        obj = Car.objects.get(model = model) 
+        obj = Car.objects.get(id = id) 
         c = {
             "model": obj.model,
             "company":obj.company
@@ -79,3 +80,48 @@ def carUpdate(request,id):
         return JsonResponse({"message":"Data not valid"})
 
     return JsonResponse(serialized.data)
+
+class CarView(APIView):
+    def get(self,request,id=None,format=None):
+        cars = Car.objects.all()
+        serialized = CarSerializer(cars,many = True)
+        return Response(serialized.data)
+    
+    def post(self,request,format=None):
+        formData = CarForm(request.data)
+        if formData.is_valid():
+            data = formData.cleaned_data
+            serialized = CarSerializer(data=data)
+            if serialized.is_valid():
+                serialized.save()
+            else:
+                data = "Not serialized"
+        else:
+            data = "Not saved"
+        return Response({"message" : data})
+    
+    def delete(self,request,id,format=None):
+        try:
+            obj = Car.objects.get(id = id) 
+            c = {
+                "model": obj.model,
+                "company":obj.company
+            }
+            print(obj)
+            obj.delete()
+            return Response({"message" : "Deleted","obj" : c})
+        except:
+            return Response({"message":"Couldn't Delete"})
+        pass
+
+    def put(self,request,id,format=None):
+        data = json.loads(request.data)
+        obj = Car.objects.get(id = id)
+        serialized = CarSerializer(instance=obj,data = data)
+        if serialized.is_valid():
+            serialized.save()
+        else:
+            return Response({"message":"Data not valid"})
+
+        return Response(serialized.data)
+
