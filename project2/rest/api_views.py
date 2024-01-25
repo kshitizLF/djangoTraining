@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics,permissions
 from .serializers import CarSerializer
 from .models import Car
 from .forms import CarForm
@@ -10,6 +10,9 @@ from rest_framework.views import APIView
 
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin,CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin
+
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
 
 @api_view()
 def hello(request):
@@ -128,6 +131,14 @@ class CarView(APIView):
 
         return Response(serialized.data)
 
+class CustomPermission(permissions.BasePermission):
+    '''
+        This method is used to achieve permission :
+        user should be logged in , username == "kshitiz" or method should be get
+    '''
+    def has_permission(self, request, view):
+        return (request.user.is_authenticated and request.user.username == "kshitiz") or request.method == 'GET'
+
 class CarView(GenericAPIView,ListModelMixin,CreateModelMixin,UpdateModelMixin):
     serializer_class = CarSerializer
     '''
@@ -139,7 +150,8 @@ class CarView(GenericAPIView,ListModelMixin,CreateModelMixin,UpdateModelMixin):
         post create from the CreateModelMixin is used to create and save a model instance and return 201
         status code
     '''
-
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [CustomPermission]
     def get_queryset(self):
         id = self.kwargs.get("pk")
         if id is None:
