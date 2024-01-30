@@ -11,6 +11,8 @@
     justify-content: space-between;
     align-items: center;
     margin: auto;
+    position: sticky;
+    top:2px;
 }
 .nav div{
     padding: 5px 8px;
