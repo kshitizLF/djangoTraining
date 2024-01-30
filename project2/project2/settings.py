@@ -42,7 +42,8 @@ INSTALLED_APPS = [
 CREATED_APPS = [
     "home",
     "rest",
-    "rest_framework"
+    "rest_framework",
+    "django_filters"
 ]
 
 INSTALLED_APPS += CREATED_APPS

@@ -14,6 +14,9 @@ from rest_framework.mixins import ListModelMixin,CreateModelMixin,RetrieveModelM
 from rest_framework.authentication import BasicAuthentication,SessionAuthentication
 from rest_framework.permissions import IsAuthenticated,IsAdminUser,IsAuthenticatedOrReadOnly
 
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import CarFilter
+
 @api_view()
 def hello(request):
     return Response({"message":"This is my first api response"})
@@ -154,6 +157,11 @@ class CarView(GenericAPIView,ListModelMixin,CreateModelMixin,UpdateModelMixin):
     authentication_classes = [SessionAuthentication]
     # permission_classes = [CustomPermission]
     permission_classes = [IsAdminUser]
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = CarFilter
+    filterset_fields = ['company','id']
+
     def get_queryset(self):
         id = self.kwargs.get("pk")
         if id is None:
