@@ -1,0 +1,111 @@
+*{
+    background-color: rgb(180, 180, 180);
+}
+.nav{
+    background-color: rgb(45, 68, 240);
+    width: 70%;
+    height: 50px;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+.nav div{
+    padding: 5px 8px;
+    margin: 0 5px;
+    color: aliceblue;
+    background-color: cornflowerblue;
+    font-size: larger;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 5px;
+    
+    flex-grow: 1;
+    max-width: 120px;
+    text-align: center;
+
+} 
+
+.nav div:hover{
+    cursor: pointer;
+    background-color: rgb(135, 135, 255);
+}
+
+.headings{
+    font-size: 200%;
+    color: blue;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder;
+    text-align: center;
+    margin: 60px 15px 0;
+}
+#profile{
+    display: block;
+    margin: 20px auto;
+    border-radius: 50%;
+    border: 2px solid grey;
+}
+#education{
+    margin: 20px;
+    background-color: aliceblue;
+    min-height: 300px;
+
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+#education > div{
+    background-color:cornflowerblue;
+    padding:10px;
+    margin: 20px;
+    border-radius: 5px;
+    text-align: center;
+    color: aliceblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;
+    max-width: 25%;
+    /* flex-grow: 1; */
+}
+#education > div > div{
+    background-color:black;
+    margin: 1%;
+    border-radius: 4px;
+}
+
+#about{
+    margin: 20px;
+}
+
+#about p{
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: cornflowerblue;
+    color: aliceblue;
+    font-family: cursive;
+}
+
+#contact{
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    background-color: cornflowerblue;
+}
+#contact > div{
+    flex-grow: 1;
+    max-width: 15%;
+    text-align: center;
+    color: aliceblue;
+    background-color:black;
+    margin: 1%;
+    padding-top: 1%;
+    border-radius: 5px;
+    font-size: larger;
+}
+a{
+    text-decoration: none;
+    color: aliceblue;
+    background-color: cornflowerblue;
+}

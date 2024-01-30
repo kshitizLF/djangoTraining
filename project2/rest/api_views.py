@@ -11,8 +11,8 @@ from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin,CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin
 
-from rest_framework.authentication import BasicAuthentication
-from rest_framework.permissions import IsAuthenticated,IsAdminUser
+from rest_framework.authentication import BasicAuthentication,SessionAuthentication
+from rest_framework.permissions import IsAuthenticated,IsAdminUser,IsAuthenticatedOrReadOnly
 
 @api_view()
 def hello(request):
@@ -150,8 +150,10 @@ class CarView(GenericAPIView,ListModelMixin,CreateModelMixin,UpdateModelMixin):
         post create from the CreateModelMixin is used to create and save a model instance and return 201
         status code
     '''
-    authentication_classes = [BasicAuthentication]
-    permission_classes = [CustomPermission]
+    # authentication_classes = [BasicAuthentication]
+    authentication_classes = [SessionAuthentication]
+    # permission_classes = [CustomPermission]
+    permission_classes = [IsAdminUser]
     def get_queryset(self):
         id = self.kwargs.get("pk")
         if id is None:
